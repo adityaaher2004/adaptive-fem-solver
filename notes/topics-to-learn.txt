@@ -1,0 +1,50 @@
+- Variational formulation of PDEs
+- Sobolev spaces and weak derivatives
+- Weak solutions and Lax–Milgram theorem
+- Galerkin methods
+- Finite-element spaces
+- Reference elements and element mappings
+- Linear triangular and quadrilateral elements
+- Shape functions and basis functions
+- Numerical quadrature for FEM
+- Element-level stiffness and mass matrices
+- Global matrix assembly
+- Dirichlet, Neumann, and Robin boundary conditions
+- Sparse matrix representations
+- Sparse linear-system solvers
+- FEM consistency, stability, and convergence
+- Céa's lemma
+- Interpolation estimates
+- A priori FEM error estimates
+- \(L^2\), \(H^1\), and energy-norm error measures
+- A posteriori error estimation
+- Residual-based error estimators
+- Element residuals and edge-jump residuals
+- Reliability and efficiency of error estimators
+- Adaptive finite-element method (AFEM)
+- The SOLVE–ESTIMATE–MARK–REFINE cycle
+- Local mesh refinement
+- Conforming mesh refinement
+- Hanging nodes and mesh conformity
+- Newest-vertex bisection
+- Red-green and longest-edge refinement
+- Mesh data structures and element connectivity
+- Dörfler marking
+- Maximum-error and bulk-chasing marking strategies
+- Adaptive convergence and quasi-optimality
+- Mesh complexity and degrees-of-freedom efficiency
+- Corner singularities and reduced regularity
+- L-shaped-domain problems
+- Boundary layers and singular perturbation problems
+- Anisotropic FEM and anisotropic mesh refinement
+- Variable-coefficient elliptic PDEs
+- Mixed boundary conditions
+- Manufactured solutions for FEM verification
+- Numerical convergence studies and experimental order of convergence
+- Goal-oriented error estimation
+- Mesh optimization and optimal complexity
+- Adaptive FEM implementation architecture
+- Robust FEM testing and numerical diagnostics
+- FEM solver benchmarking and performance profiling
+- Hidden-test construction for adaptive numerical algorithms
+- Machine-checkable verification of FEM accuracy and mesh constraints
