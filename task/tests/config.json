@@ -1,0 +1,6 @@
+{
+  "_todo": "sealed thresholds; fill after calibration",
+  "error_tol": null,
+  "dof_budget": null,
+  "max_iter": null
+}

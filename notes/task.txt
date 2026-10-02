@@ -1,0 +1,13 @@
+The agent is given a codebase for solving elliptical PDEs using FEM. The agent's task is to develop an adaptive FEM solver by constructing efficient FEM meshes constrained on degrees of freedom and error tolerance. The agent has to figure out where it's current approximation is inaccurate, iteratively refine its mesh where needed to match the problem constraints. 
+
+specs.txt specifies the following:
+- Error norm
+- DOF
+- PDE
+- Boundary conditions
+- Error tolerance
+- N_max iter
+
+The agent will be given code for mesh representation, FEM basis functions, numerical quadrature, matrix assembly, and linear system solution.
+
+The agent will produce a .json containing the mesh and error rates that match the task requirements of DOF and error tolerance. The verifier will check that the submitted mesh is working, matches the DOF budget constraints and successfully runs and clears the problem with the matching error. The verifier independently re-solves the PDE on the submitted mesh against a known reference solution to compute the error. The verifier image has numpy and scipy only, so the agent must generate solutions that run on them rather than collecting / calling open available FEM code. 

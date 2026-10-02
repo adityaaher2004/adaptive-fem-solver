@@ -1,0 +1,46 @@
+# Problem specification. Values marked TBD and the peak parameters are
+# provisional until calibration (authoring/provenance/calibrate.py).
+
+Domain:
+  Omega = (-1,1)^2 \ ([0,1) x (-1,0])      (L-shape, lower-right quadrant removed)
+  Re-entrant corner at the origin.
+  Polar coordinates about the origin: r = |x|, theta in [0, 3pi/2],
+  theta = 0 on the edge {y = 0, 0 <= x <= 1}, theta = 3pi/2 on {x = 0, -1 <= y <= 0}.
+
+PDE:
+  -Laplace(u) = f  in Omega
+
+Exact solution:
+  u   = u_s + u_p
+  u_s = r^(1/3) sin(theta / 3)                      (corner singularity, harmonic)
+  u_p = A exp(-alpha |x - x0|^2)                    (interior peak)
+  A = 0.5,  alpha = 1000,  x0 = (-0.43, 0.61)       (provisional)
+
+Source term (from u_p only; u_s is harmonic):
+  f = 4 alpha (1 - alpha |x - x0|^2) u_p
+
+Boundary conditions:
+  Gamma_N = {x = 0, -1 < y < 0}  (open segment between (0,-1) and the origin)
+  Gamma_D = boundary of Omega minus Gamma_N  (closed; includes (0,0) and (0,-1))
+
+  Dirichlet: u = g_D = u (exact solution)       on Gamma_D
+  Neumann:   du/dn = g_N                         on Gamma_N
+             outward normal n = (+1, 0), so g_N = du/dx at x = 0:
+             g_N(y) = 2 alpha x0[0] u_p(0, y)    (u_s contributes zero flux)
+
+Discretisation:
+  Continuous P1 Lagrange elements on a conforming triangulation of Omega.
+  Dirichlet data imposed by nodal interpolation of g_D at vertices on Gamma_D.
+  The mesh must contain the six domain corners (-1,-1), (0,-1), (0,0), (1,0),
+  (1,1), (-1,1) as vertices, so that Gamma_N and Gamma_D are unions of mesh edges.
+
+Error norm:
+  Relative energy error  ||grad(u - u_h)||_L2(Omega) / ||grad u||_L2(Omega)
+
+DOF:
+  Number of mesh vertices NOT on Gamma_D
+  (interior vertices plus vertices strictly inside Gamma_N).
+
+Error tolerance:  TBD
+DOF budget:       TBD
+N_max iter:       TBD
