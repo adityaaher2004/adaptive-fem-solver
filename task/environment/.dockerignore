@@ -1,0 +1,7 @@
+# Ship only the agent-facing sources. To withhold the fem unit tests from the
+# agent, add: data/fem/test_*.py
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+Dockerfile
+.dockerignore

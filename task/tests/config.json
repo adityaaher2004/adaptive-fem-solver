@@ -1,6 +1,10 @@
 {
-  "_todo": "sealed thresholds; fill after calibration",
-  "error_tol": null,
-  "dof_budget": null,
-  "max_iter": null
+  "error_tol": 0.05,
+  "dof_budget": 10000,
+  "max_iter": 54,
+  "problem": {
+    "A": 0.5,
+    "alpha": 1000.0,
+    "x0": [-0.43, 0.61]
+  }
 }

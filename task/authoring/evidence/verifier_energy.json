@@ -1,0 +1,14 @@
+{
+  "default": {
+    "error_squared": 0.003922090023539348,
+    "reference_squared": 1.6325361700004277,
+    "relative": 0.04901481556713943
+  },
+  "refined": {
+    "error_squared": 0.003922090023539358,
+    "reference_squared": 1.6325361700004293,
+    "relative": 0.04901481556713947
+  },
+  "green": 1.6325361700004422,
+  "green_refined": 1.6325361700004422
+}

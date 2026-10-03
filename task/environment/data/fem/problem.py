@@ -11,7 +11,7 @@ Relative energy error uses the FULL grad_u, including its cross term.
 Exact fields are exposed intentionally; hide them in the verifier if the
 exam must assess residual-estimator design rather than mesh quality alone.
 
-alpha=1000 is provisional. Load/error integration must resolve the peak
+With alpha=1000, load/error integration must resolve the peak
 (scale alpha**-0.5); fixed low-order quadrature on coarse cells can miss it.
 Singular energy integration requires corner-aware quadrature; this module
 supplies fields, not an error integrator or a certified mesh verifier.

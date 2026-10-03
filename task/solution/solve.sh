@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
-# Reference solution: runs afem.py and writes /app/output/submission.json.
+# Reference solution: run the adaptive solver and write /app/output/submission.json.
+#
+# afem.py finds the provided fem package in /app (task container) or in
+# environment/data (authoring checkout). Extra arguments are passed through,
+# e.g. `bash solve.sh --output /tmp/submission.json`.
 set -euo pipefail
-echo "TODO: solve.sh not implemented" >&2
-exit 1
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Stopping limits: the task's tolerance / DOF budget / N_max from specs.txt
+# (selected by authoring/provenance/calibrate.py, see selected_config.json).
+TOL=0.05
+BUDGET=10000
+N_MAX=54
+
+exec python3 "$SCRIPT_DIR/afem.py" \
+    --tol "$TOL" --budget "$BUDGET" --N-max "$N_MAX" \
+    --output /app/output/submission.json "$@"

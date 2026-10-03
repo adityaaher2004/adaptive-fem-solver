@@ -1,0 +1,1105 @@
+{
+  "parameters": {
+    "tol": 0.05,
+    "budgets": [
+      10000,
+      12000
+    ],
+    "max_solves": 100,
+    "baseline_steps": 100,
+    "baseline_margin": 2.0,
+    "integration_h": 0.04,
+    "error_order": 12,
+    "config": "authoring/provenance/selected_config.json",
+    "evidence_dir": "authoring/evidence/calibration",
+    "report": "authoring/evidence/calibration.md"
+  },
+  "oracle": [
+    {
+      "iter": 0,
+      "dof": 0,
+      "vertices": 8,
+      "triangles": 6,
+      "reported_error": 0.9682018660642688,
+      "estimator": 79.29735121477601,
+      "relative_estimator": 62.06221544883197,
+      "marked": 1
+    },
+    {
+      "iter": 1,
+      "dof": 1,
+      "vertices": 9,
+      "triangles": 8,
+      "reported_error": 0.9451471764607794,
+      "estimator": 56.07942646461279,
+      "relative_estimator": 43.89066382244896,
+      "marked": 1
+    },
+    {
+      "iter": 2,
+      "dof": 1,
+      "vertices": 10,
+      "triangles": 9,
+      "reported_error": 0.9454293010672428,
+      "estimator": 40.46730412612318,
+      "relative_estimator": 31.671808815133893,
+      "marked": 1
+    },
+    {
+      "iter": 3,
+      "dof": 4,
+      "vertices": 13,
+      "triangles": 15,
+      "reported_error": 0.9375879933127872,
+      "estimator": 28.08384730569646,
+      "relative_estimator": 21.979872773924175,
+      "marked": 1
+    },
+    {
+      "iter": 4,
+      "dof": 6,
+      "vertices": 16,
+      "triangles": 20,
+      "reported_error": 0.9350256755381114,
+      "estimator": 20.28982536974867,
+      "relative_estimator": 15.879868554231491,
+      "marked": 1
+    },
+    {
+      "iter": 5,
+      "dof": 11,
+      "vertices": 21,
+      "triangles": 30,
+      "reported_error": 0.8552393614854277,
+      "estimator": 14.073738665751458,
+      "relative_estimator": 11.014836463090035,
+      "marked": 1
+    },
+    {
+      "iter": 6,
+      "dof": 15,
+      "vertices": 25,
+      "triangles": 38,
+      "reported_error": 0.8488084486343385,
+      "estimator": 10.231596558480698,
+      "relative_estimator": 8.007777567950063,
+      "marked": 1
+    },
+    {
+      "iter": 7,
+      "dof": 19,
+      "vertices": 29,
+      "triangles": 46,
+      "reported_error": 0.8473532309693599,
+      "estimator": 7.55856721191327,
+      "relative_estimator": 5.915726673341409,
+      "marked": 1
+    },
+    {
+      "iter": 8,
+      "dof": 23,
+      "vertices": 34,
+      "triangles": 55,
+      "reported_error": 0.7324907238513071,
+      "estimator": 5.522953162660605,
+      "relative_estimator": 4.322549288902735,
+      "marked": 1
+    },
+    {
+      "iter": 9,
+      "dof": 30,
+      "vertices": 42,
+      "triangles": 70,
+      "reported_error": 0.6994723177758277,
+      "estimator": 4.628478038405046,
+      "relative_estimator": 3.6224867140846624,
+      "marked": 2
+    },
+    {
+      "iter": 10,
+      "dof": 36,
+      "vertices": 48,
+      "triangles": 82,
+      "reported_error": 0.6763412843256498,
+      "estimator": 3.8076011509489307,
+      "relative_estimator": 2.980025932356171,
+      "marked": 3
+    },
+    {
+      "iter": 11,
+      "dof": 41,
+      "vertices": 53,
+      "triangles": 92,
+      "reported_error": 0.6483294701840709,
+      "estimator": 3.123182548633263,
+      "relative_estimator": 2.4443644744667408,
+      "marked": 5
+    },
+    {
+      "iter": 12,
+      "dof": 50,
+      "vertices": 63,
+      "triangles": 110,
+      "reported_error": 0.6005800304279544,
+      "estimator": 2.7520669285129338,
+      "relative_estimator": 2.1539101626817763,
+      "marked": 8
+    },
+    {
+      "iter": 13,
+      "dof": 64,
+      "vertices": 77,
+      "triangles": 138,
+      "reported_error": 0.533164865291389,
+      "estimator": 2.3373745920220235,
+      "relative_estimator": 1.829350454970514,
+      "marked": 11
+    },
+    {
+      "iter": 14,
+      "dof": 74,
+      "vertices": 87,
+      "triangles": 157,
+      "reported_error": 0.47719299742373666,
+      "estimator": 2.0733220304681828,
+      "relative_estimator": 1.6226892397493686,
+      "marked": 15
+    },
+    {
+      "iter": 15,
+      "dof": 91,
+      "vertices": 105,
+      "triangles": 192,
+      "reported_error": 0.4279076742810279,
+      "estimator": 1.8307926582149625,
+      "relative_estimator": 1.4328731875894358,
+      "marked": 21
+    },
+    {
+      "iter": 16,
+      "dof": 118,
+      "vertices": 134,
+      "triangles": 247,
+      "reported_error": 0.38070188183863224,
+      "estimator": 1.6302602845785714,
+      "relative_estimator": 1.2759261624099663,
+      "marked": 23
+    },
+    {
+      "iter": 17,
+      "dof": 144,
+      "vertices": 160,
+      "triangles": 299,
+      "reported_error": 0.3380002120160952,
+      "estimator": 1.4330481795734418,
+      "relative_estimator": 1.1215777514842638,
+      "marked": 32
+    },
+    {
+      "iter": 18,
+      "dof": 182,
+      "vertices": 201,
+      "triangles": 377,
+      "reported_error": 0.30056386669101537,
+      "estimator": 1.2866345007316768,
+      "relative_estimator": 1.0069868207377723,
+      "marked": 40
+    },
+    {
+      "iter": 19,
+      "dof": 217,
+      "vertices": 236,
+      "triangles": 447,
+      "reported_error": 0.27093983173821695,
+      "estimator": 1.1494460937337985,
+      "relative_estimator": 0.8996160656971509,
+      "marked": 49
+    },
+    {
+      "iter": 20,
+      "dof": 263,
+      "vertices": 283,
+      "triangles": 539,
+      "reported_error": 0.2420836259257549,
+      "estimator": 1.030512071912068,
+      "relative_estimator": 0.8065321382541095,
+      "marked": 65
+    },
+    {
+      "iter": 21,
+      "dof": 318,
+      "vertices": 339,
+      "triangles": 650,
+      "reported_error": 0.21634558895411413,
+      "estimator": 0.9184066151741522,
+      "relative_estimator": 0.7187925996332559,
+      "marked": 85
+    },
+    {
+      "iter": 22,
+      "dof": 381,
+      "vertices": 402,
+      "triangles": 775,
+      "reported_error": 0.1965179703236633,
+      "estimator": 0.8381798611767636,
+      "relative_estimator": 0.656002985411035,
+      "marked": 102
+    },
+    {
+      "iter": 23,
+      "dof": 451,
+      "vertices": 474,
+      "triangles": 916,
+      "reported_error": 0.1779359362218581,
+      "estimator": 0.758479325469604,
+      "relative_estimator": 0.593625216886089,
+      "marked": 147
+    },
+    {
+      "iter": 24,
+      "dof": 562,
+      "vertices": 586,
+      "triangles": 1137,
+      "reported_error": 0.158713444214352,
+      "estimator": 0.6851869941383831,
+      "relative_estimator": 0.5362628411144812,
+      "marked": 168
+    },
+    {
+      "iter": 25,
+      "dof": 676,
+      "vertices": 707,
+      "triangles": 1371,
+      "reported_error": 0.14340542507286028,
+      "estimator": 0.6153215754093091,
+      "relative_estimator": 0.4815825446934734,
+      "marked": 206
+    },
+    {
+      "iter": 26,
+      "dof": 829,
+      "vertices": 864,
+      "triangles": 1679,
+      "reported_error": 0.12883330800291706,
+      "estimator": 0.5603845173895771,
+      "relative_estimator": 0.4385859568011723,
+      "marked": 281
+    },
+    {
+      "iter": 27,
+      "dof": 1041,
+      "vertices": 1080,
+      "triangles": 2105,
+      "reported_error": 0.11472794173338545,
+      "estimator": 0.49869604080709246,
+      "relative_estimator": 0.39030535895102386,
+      "marked": 346
+    },
+    {
+      "iter": 28,
+      "dof": 1277,
+      "vertices": 1317,
+      "triangles": 2576,
+      "reported_error": 0.10371204787590915,
+      "estimator": 0.4518729859354809,
+      "relative_estimator": 0.353659210308514,
+      "marked": 400
+    },
+    {
+      "iter": 29,
+      "dof": 1548,
+      "vertices": 1591,
+      "triangles": 3118,
+      "reported_error": 0.09332543114801613,
+      "estimator": 0.40662622025156014,
+      "relative_estimator": 0.31824674725175023,
+      "marked": 559
+    },
+    {
+      "iter": 30,
+      "dof": 1910,
+      "vertices": 1958,
+      "triangles": 3843,
+      "reported_error": 0.08336803191365268,
+      "estimator": 0.3674311641618752,
+      "relative_estimator": 0.287570665662188,
+      "marked": 676
+    },
+    {
+      "iter": 31,
+      "dof": 2355,
+      "vertices": 2407,
+      "triangles": 4736,
+      "reported_error": 0.07517501727063759,
+      "estimator": 0.3295437681172235,
+      "relative_estimator": 0.25791802657366636,
+      "marked": 822
+    },
+    {
+      "iter": 32,
+      "dof": 2894,
+      "vertices": 2956,
+      "triangles": 5820,
+      "reported_error": 0.06760032203990912,
+      "estimator": 0.29889815989405605,
+      "relative_estimator": 0.23393318583088074,
+      "marked": 1037
+    },
+    {
+      "iter": 33,
+      "dof": 3568,
+      "vertices": 3643,
+      "triangles": 7179,
+      "reported_error": 0.06056529279854719,
+      "estimator": 0.2680035403656343,
+      "relative_estimator": 0.20975345593934067,
+      "marked": 1355
+    },
+    {
+      "iter": 34,
+      "dof": 4412,
+      "vertices": 4494,
+      "triangles": 8869,
+      "reported_error": 0.054343617641182326,
+      "estimator": 0.2418825088849933,
+      "relative_estimator": 0.189309783373337,
+      "marked": 1570
+    },
+    {
+      "iter": 35,
+      "dof": 5383,
+      "vertices": 5470,
+      "triangles": 10813,
+      "reported_error": 0.049014815567139484,
+      "estimator": 0.2179742707201092,
+      "relative_estimator": 0.17059795750094894,
+      "stop_reason": "tol"
+    }
+  ],
+  "oracle_recheck": {
+    "dof": 5383,
+    "vertices": 5470,
+    "triangles": 10813,
+    "relative_error": 0.049014815567139415
+  },
+  "quadrature_stable": true,
+  "reference_energy": {
+    "fem_error": 1.632536170000428,
+    "green_identity": 1.6325361700004342
+  },
+  "baselines": {
+    "uniform": [
+      {
+        "dof": 0,
+        "vertices": 8,
+        "triangles": 6,
+        "relative_error": 0.9682018660642688,
+        "step": 0,
+        "over_budget": false
+      },
+      {
+        "dof": 6,
+        "vertices": 21,
+        "triangles": 24,
+        "relative_error": 0.8494634249844705,
+        "step": 1,
+        "over_budget": false
+      },
+      {
+        "dof": 36,
+        "vertices": 65,
+        "triangles": 96,
+        "relative_error": 0.7867918007256871,
+        "step": 2,
+        "over_budget": false
+      },
+      {
+        "dof": 168,
+        "vertices": 225,
+        "triangles": 384,
+        "relative_error": 0.7389479890689076,
+        "step": 3,
+        "over_budget": false
+      },
+      {
+        "dof": 720,
+        "vertices": 833,
+        "triangles": 1536,
+        "relative_error": 0.601343601987962,
+        "step": 4,
+        "over_budget": false
+      },
+      {
+        "dof": 2976,
+        "vertices": 3201,
+        "triangles": 6144,
+        "relative_error": 0.43091525154590715,
+        "step": 5,
+        "over_budget": false
+      },
+      {
+        "dof": 12096,
+        "vertices": 12545,
+        "triangles": 24576,
+        "relative_error": 0.25555159277460743,
+        "step": 6,
+        "over_budget": true
+      }
+    ],
+    "corner": [
+      {
+        "dof": 0,
+        "vertices": 8,
+        "triangles": 6,
+        "relative_error": 0.9682018660642688,
+        "step": 0,
+        "over_budget": false
+      },
+      {
+        "dof": 2,
+        "vertices": 10,
+        "triangles": 10,
+        "relative_error": 0.8942607531254485,
+        "step": 1,
+        "over_budget": false
+      },
+      {
+        "dof": 4,
+        "vertices": 12,
+        "triangles": 14,
+        "relative_error": 0.8861159795159755,
+        "step": 2,
+        "over_budget": false
+      },
+      {
+        "dof": 6,
+        "vertices": 15,
+        "triangles": 18,
+        "relative_error": 0.8522277996769434,
+        "step": 3,
+        "over_budget": false
+      },
+      {
+        "dof": 9,
+        "vertices": 18,
+        "triangles": 24,
+        "relative_error": 0.8204791195842925,
+        "step": 4,
+        "over_budget": false
+      },
+      {
+        "dof": 12,
+        "vertices": 23,
+        "triangles": 31,
+        "relative_error": 0.7954605241863681,
+        "step": 5,
+        "over_budget": false
+      },
+      {
+        "dof": 15,
+        "vertices": 29,
+        "triangles": 40,
+        "relative_error": 0.7762006142051691,
+        "step": 6,
+        "over_budget": false
+      },
+      {
+        "dof": 22,
+        "vertices": 39,
+        "triangles": 56,
+        "relative_error": 0.760160841667013,
+        "step": 7,
+        "over_budget": false
+      },
+      {
+        "dof": 33,
+        "vertices": 50,
+        "triangles": 78,
+        "relative_error": 0.7461550080670023,
+        "step": 8,
+        "over_budget": false
+      },
+      {
+        "dof": 49,
+        "vertices": 67,
+        "triangles": 110,
+        "relative_error": 0.7348704638406998,
+        "step": 9,
+        "over_budget": false
+      },
+      {
+        "dof": 68,
+        "vertices": 87,
+        "triangles": 148,
+        "relative_error": 0.7259201127278672,
+        "step": 10,
+        "over_budget": false
+      },
+      {
+        "dof": 90,
+        "vertices": 117,
+        "triangles": 198,
+        "relative_error": 0.7183492334131107,
+        "step": 11,
+        "over_budget": false
+      },
+      {
+        "dof": 127,
+        "vertices": 154,
+        "triangles": 272,
+        "relative_error": 0.7116120948872557,
+        "step": 12,
+        "over_budget": false
+      },
+      {
+        "dof": 171,
+        "vertices": 206,
+        "triangles": 366,
+        "relative_error": 0.7070679858980332,
+        "step": 13,
+        "over_budget": false
+      },
+      {
+        "dof": 235,
+        "vertices": 272,
+        "triangles": 494,
+        "relative_error": 0.702590729956575,
+        "step": 14,
+        "over_budget": false
+      },
+      {
+        "dof": 311,
+        "vertices": 351,
+        "triangles": 646,
+        "relative_error": 0.6927904930879877,
+        "step": 15,
+        "over_budget": false
+      },
+      {
+        "dof": 410,
+        "vertices": 453,
+        "triangles": 845,
+        "relative_error": 0.6902348096545404,
+        "step": 16,
+        "over_budget": false
+      },
+      {
+        "dof": 534,
+        "vertices": 591,
+        "triangles": 1104,
+        "relative_error": 0.6875779397385332,
+        "step": 17,
+        "over_budget": false
+      },
+      {
+        "dof": 697,
+        "vertices": 762,
+        "triangles": 1436,
+        "relative_error": 0.685641958454797,
+        "step": 18,
+        "over_budget": false
+      },
+      {
+        "dof": 901,
+        "vertices": 977,
+        "triangles": 1850,
+        "relative_error": 0.6739965106398822,
+        "step": 19,
+        "over_budget": false
+      },
+      {
+        "dof": 1168,
+        "vertices": 1247,
+        "triangles": 2384,
+        "relative_error": 0.6662565724711529,
+        "step": 20,
+        "over_budget": false
+      },
+      {
+        "dof": 1503,
+        "vertices": 1588,
+        "triangles": 3054,
+        "relative_error": 0.5303068564896745,
+        "step": 21,
+        "over_budget": false
+      },
+      {
+        "dof": 1927,
+        "vertices": 2016,
+        "triangles": 3902,
+        "relative_error": 0.5295144298632635,
+        "step": 22,
+        "over_budget": false
+      },
+      {
+        "dof": 2436,
+        "vertices": 2551,
+        "triangles": 4938,
+        "relative_error": 0.5251917366451659,
+        "step": 23,
+        "over_budget": false
+      },
+      {
+        "dof": 3099,
+        "vertices": 3237,
+        "triangles": 6282,
+        "relative_error": 0.47628598838545805,
+        "step": 24,
+        "over_budget": false
+      },
+      {
+        "dof": 3930,
+        "vertices": 4089,
+        "triangles": 7956,
+        "relative_error": 0.46854419938947206,
+        "step": 25,
+        "over_budget": false
+      },
+      {
+        "dof": 4953,
+        "vertices": 5119,
+        "triangles": 10002,
+        "relative_error": 0.4681972566884874,
+        "step": 26,
+        "over_budget": false
+      },
+      {
+        "dof": 6208,
+        "vertices": 6386,
+        "triangles": 12512,
+        "relative_error": 0.4207661800544569,
+        "step": 27,
+        "over_budget": false
+      },
+      {
+        "dof": 7840,
+        "vertices": 8028,
+        "triangles": 15776,
+        "relative_error": 0.3856504786889115,
+        "step": 28,
+        "over_budget": false
+      },
+      {
+        "dof": 9844,
+        "vertices": 10064,
+        "triangles": 19802,
+        "relative_error": 0.3854354697258555,
+        "step": 29,
+        "over_budget": false
+      },
+      {
+        "dof": 12273,
+        "vertices": 12540,
+        "triangles": 24696,
+        "relative_error": 0.31209387301623176,
+        "step": 30,
+        "over_budget": true
+      }
+    ],
+    "peak_ignored": [
+      {
+        "dof": 0,
+        "vertices": 8,
+        "triangles": 6,
+        "relative_error": 0.9682018660642688,
+        "step": 0,
+        "over_budget": false
+      },
+      {
+        "dof": 1,
+        "vertices": 9,
+        "triangles": 8,
+        "relative_error": 0.918593468000664,
+        "step": 1,
+        "over_budget": false
+      },
+      {
+        "dof": 3,
+        "vertices": 11,
+        "triangles": 12,
+        "relative_error": 0.8767985003167926,
+        "step": 2,
+        "over_budget": false
+      },
+      {
+        "dof": 6,
+        "vertices": 14,
+        "triangles": 17,
+        "relative_error": 0.8522277996769435,
+        "step": 3,
+        "over_budget": false
+      },
+      {
+        "dof": 7,
+        "vertices": 15,
+        "triangles": 19,
+        "relative_error": 0.8328511287890361,
+        "step": 4,
+        "over_budget": false
+      },
+      {
+        "dof": 9,
+        "vertices": 17,
+        "triangles": 22,
+        "relative_error": 0.81505388709055,
+        "step": 5,
+        "over_budget": false
+      },
+      {
+        "dof": 10,
+        "vertices": 18,
+        "triangles": 24,
+        "relative_error": 0.8029337136005225,
+        "step": 6,
+        "over_budget": false
+      },
+      {
+        "dof": 13,
+        "vertices": 22,
+        "triangles": 31,
+        "relative_error": 0.785358216474645,
+        "step": 7,
+        "over_budget": false
+      },
+      {
+        "dof": 16,
+        "vertices": 25,
+        "triangles": 36,
+        "relative_error": 0.7672588854653729,
+        "step": 8,
+        "over_budget": false
+      },
+      {
+        "dof": 20,
+        "vertices": 30,
+        "triangles": 45,
+        "relative_error": 0.7527001244187552,
+        "step": 9,
+        "over_budget": false
+      },
+      {
+        "dof": 36,
+        "vertices": 49,
+        "triangles": 79,
+        "relative_error": 0.7396721158178573,
+        "step": 10,
+        "over_budget": false
+      },
+      {
+        "dof": 40,
+        "vertices": 55,
+        "triangles": 89,
+        "relative_error": 0.7324420066712473,
+        "step": 11,
+        "over_budget": false
+      },
+      {
+        "dof": 52,
+        "vertices": 70,
+        "triangles": 115,
+        "relative_error": 0.7240842423595539,
+        "step": 12,
+        "over_budget": false
+      },
+      {
+        "dof": 61,
+        "vertices": 79,
+        "triangles": 133,
+        "relative_error": 0.7186293562040963,
+        "step": 13,
+        "over_budget": false
+      },
+      {
+        "dof": 74,
+        "vertices": 93,
+        "triangles": 159,
+        "relative_error": 0.7139873379416974,
+        "step": 14,
+        "over_budget": false
+      },
+      {
+        "dof": 91,
+        "vertices": 110,
+        "triangles": 193,
+        "relative_error": 0.7099277877961702,
+        "step": 15,
+        "over_budget": false
+      },
+      {
+        "dof": 115,
+        "vertices": 135,
+        "triangles": 241,
+        "relative_error": 0.7058123507960159,
+        "step": 16,
+        "over_budget": false
+      },
+      {
+        "dof": 138,
+        "vertices": 160,
+        "triangles": 288,
+        "relative_error": 0.7034016189922393,
+        "step": 17,
+        "over_budget": false
+      },
+      {
+        "dof": 168,
+        "vertices": 191,
+        "triangles": 347,
+        "relative_error": 0.7001294655751532,
+        "step": 18,
+        "over_budget": false
+      },
+      {
+        "dof": 199,
+        "vertices": 227,
+        "triangles": 414,
+        "relative_error": 0.6982306820388702,
+        "step": 19,
+        "over_budget": false
+      },
+      {
+        "dof": 243,
+        "vertices": 276,
+        "triangles": 505,
+        "relative_error": 0.6965753802071023,
+        "step": 20,
+        "over_budget": false
+      },
+      {
+        "dof": 295,
+        "vertices": 332,
+        "triangles": 612,
+        "relative_error": 0.6944525471989512,
+        "step": 21,
+        "over_budget": false
+      },
+      {
+        "dof": 362,
+        "vertices": 402,
+        "triangles": 747,
+        "relative_error": 0.6932174519225841,
+        "step": 22,
+        "over_budget": false
+      },
+      {
+        "dof": 440,
+        "vertices": 483,
+        "triangles": 904,
+        "relative_error": 0.6923060115739447,
+        "step": 23,
+        "over_budget": false
+      },
+      {
+        "dof": 541,
+        "vertices": 586,
+        "triangles": 1105,
+        "relative_error": 0.684465521085316,
+        "step": 24,
+        "over_budget": false
+      },
+      {
+        "dof": 660,
+        "vertices": 708,
+        "triangles": 1343,
+        "relative_error": 0.6830881614146112,
+        "step": 25,
+        "over_budget": false
+      },
+      {
+        "dof": 808,
+        "vertices": 863,
+        "triangles": 1643,
+        "relative_error": 0.6821121055322619,
+        "step": 26,
+        "over_budget": false
+      },
+      {
+        "dof": 986,
+        "vertices": 1050,
+        "triangles": 2004,
+        "relative_error": 0.671313837973309,
+        "step": 27,
+        "over_budget": false
+      },
+      {
+        "dof": 1210,
+        "vertices": 1285,
+        "triangles": 2460,
+        "relative_error": 0.6708354561682318,
+        "step": 28,
+        "over_budget": false
+      },
+      {
+        "dof": 1481,
+        "vertices": 1562,
+        "triangles": 3006,
+        "relative_error": 0.6701815177691964,
+        "step": 29,
+        "over_budget": false
+      },
+      {
+        "dof": 1826,
+        "vertices": 1915,
+        "triangles": 3699,
+        "relative_error": 0.5285762263445781,
+        "step": 30,
+        "over_budget": false
+      },
+      {
+        "dof": 2227,
+        "vertices": 2322,
+        "triangles": 4504,
+        "relative_error": 0.5274686688167713,
+        "step": 31,
+        "over_budget": false
+      },
+      {
+        "dof": 2744,
+        "vertices": 2846,
+        "triangles": 5538,
+        "relative_error": 0.4848843378534505,
+        "step": 32,
+        "over_budget": false
+      },
+      {
+        "dof": 3330,
+        "vertices": 3443,
+        "triangles": 6716,
+        "relative_error": 0.46767757865106424,
+        "step": 33,
+        "over_budget": false
+      },
+      {
+        "dof": 4085,
+        "vertices": 4213,
+        "triangles": 8234,
+        "relative_error": 0.46745494106137736,
+        "step": 34,
+        "over_budget": false
+      },
+      {
+        "dof": 4985,
+        "vertices": 5136,
+        "triangles": 10052,
+        "relative_error": 0.4673413689128285,
+        "step": 35,
+        "over_budget": false
+      },
+      {
+        "dof": 6107,
+        "vertices": 6278,
+        "triangles": 12307,
+        "relative_error": 0.4662648834541522,
+        "step": 36,
+        "over_budget": false
+      },
+      {
+        "dof": 7445,
+        "vertices": 7631,
+        "triangles": 14991,
+        "relative_error": 0.4372305857166984,
+        "step": 37,
+        "over_budget": false
+      },
+      {
+        "dof": 9097,
+        "vertices": 9292,
+        "triangles": 18294,
+        "relative_error": 0.3849265958857624,
+        "step": 38,
+        "over_budget": false
+      },
+      {
+        "dof": 11075,
+        "vertices": 11281,
+        "triangles": 22250,
+        "relative_error": 0.3723588783256123,
+        "step": 39,
+        "over_budget": false
+      },
+      {
+        "dof": 13479,
+        "vertices": 13705,
+        "triangles": 27065,
+        "relative_error": 0.28901503651583377,
+        "step": 40,
+        "over_budget": true
+      }
+    ]
+  },
+  "baseline_stops": {
+    "uniform": {
+      "reason": "budget",
+      "next_dof": 12096
+    },
+    "corner": {
+      "reason": "budget",
+      "next_dof": 12273
+    },
+    "peak_ignored": {
+      "reason": "budget",
+      "next_dof": 13479
+    }
+  },
+  "theta_sweep": [
+    {
+      "theta": 0.2,
+      "solves": 50,
+      "dof": 3568,
+      "relative_error": 0.04881257867133722,
+      "stop_reason": "tol",
+      "passes": true
+    },
+    {
+      "theta": 0.3,
+      "solves": 40,
+      "dof": 4157,
+      "relative_error": 0.04866722032980243,
+      "stop_reason": "tol",
+      "passes": true
+    },
+    {
+      "theta": 0.4,
+      "solves": 36,
+      "dof": 5383,
+      "relative_error": 0.049014815567139484,
+      "stop_reason": "tol",
+      "passes": true
+    },
+    {
+      "theta": 0.5,
+      "solves": 35,
+      "dof": 9113,
+      "relative_error": 0.04528166100336748,
+      "stop_reason": "tol",
+      "passes": true
+    },
+    {
+      "theta": 0.6,
+      "solves": 31,
+      "dof": 8331,
+      "relative_error": 0.05761240547974183,
+      "stop_reason": "budget",
+      "passes": false
+    },
+    {
+      "theta": 0.8,
+      "solves": 26,
+      "dof": 9837,
+      "relative_error": 0.0831412041495957,
+      "stop_reason": "budget",
+      "passes": false
+    }
+  ],
+  "selected": {
+    "tol": 0.05,
+    "dof_budget": 10000,
+    "N_max": 54,
+    "A": 0.5,
+    "alpha": 1000.0,
+    "x0": [
+      -0.43,
+      0.61
+    ]
+  }
+}

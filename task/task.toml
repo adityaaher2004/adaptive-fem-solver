@@ -1,2 +1,49 @@
-# TODO: replace with the provided Harbor template.
-# Planned: artifacts = ["/app/output/submission.json"]; set agent and verifier timeouts.
+schema_version = "1.4"
+
+artifacts = ["/app/output/submission.json"] # paths the verifier reads from the agent; must be above the first [section]
+
+[task]
+name = "afterquery/adaptive-fem-solver" # must equal the task name you submit
+description = "Implement an adaptive FEM solver for a custom mixed boundary L-shaped domain Poisson problem by submitting a P1 FEM mesh that has relative energy error at most 0.05, maximum 10,000 degrees of freedom and 54 solve budget run." # one sentence: what the task asks for
+authors = [{ name = "Aditya Rahul Aher", email = "adityaaher2004@gmail.com" }] # mirrors author_name / author_email
+keywords = ["finite-element-method", "pde"] # mirrors tags
+
+[metadata]
+author_name = "Aditya Rahul Aher"
+author_email = "adityaaher2004@gmail.com"
+author_organization = "Independent Researcher" # your university, institute, lab or employer, or exactly "Independent Researcher"
+author_profile = "https://www.linkedin.com/in/aditya-aher/" # Google Scholar link (LinkedIn or a personal site also works)
+research_advisor = "" # optional: your advisor/supervisor, if a PhD student or postdoc
+referred_by = "" # optional: who referred you, if anyone
+conflicts_of_interest = "None" # disclose any (employer, vendor engagement, competing benchmark work), or "None"
+domain = "mathematical-sciences" # life-sciences | physical-sciences | earth-sciences | mathematical-sciences | engineering-sciences
+field = "applied-mathematics" # one of the four fields in the domain (table below), e.g. "astronomy"
+subfield = "finite element method" # free text: your specialization within the field, e.g. "radio interferometry"
+category = "Science" # keep exactly this
+subcategory = "Applied Mathematics & Scientific Computing" # the field's display name, e.g. "Astronomy"
+tags = ["finite-element-method", "pde"] # specific, relevant keywords; at least one
+expert_time_estimate_hours = 4 # best-case hours for a focused domain expert (must be > 0)
+relevant_experience = "I have taken courses in numerical computing (graduate level numerical PDE methods, numerical analysis) and implemented numerical simulations, solvers such as quantum tunneling in potential barriers, finite difference/element schemes and more." # your professional background for THIS task; generic statements fail review
+difficulty_explanation = "This task is difficult because it follows a synthetic problem with an exact closed form solution. The L-shaped domain, corner singularity and other specifications make this problem particularly interesting. A passing solution must make custom meshes accordingly and reside within the computing budgets. The solution also cannot be found easily by refining the mesh at corners; naive estimators fail easily and solve budget makes it more difficult." # why this task is hard for agents and humans; say whether the data is real or synthetic
+solution_explanation = "The reference solution is built completely in-package. At every solve run, it computes residual indicators such as flux residual, gradient jumps and more. It also uses nuanced techniques such as Dorfler marking, nvb, and recursive conformity closure. It finds the proper solution in a decent number of solves, DOF and convergence rate." # high-level approach and key insights
+verification_explanation = "The verifier never runs or imports the agent's code or mount the fem codebase. It only uses the submission JSON and runs tests on it. It validates the mesh and reassembles the system by itself. The error is matched against a ground truth exact form solution. The verifier also matched an independent Green's identity computation to measure its own correctness. The verifier also matches the oracle error. The verifier reward is fail closed and only passes if all requirements are met, such as DOF budget, solve budget, error tolerance and more." # how the tests verify correctness, and where the ground truth comes from
+
+[verifier]
+timeout_sec = 600.0 # increase based on test suite runtime (max 28800)
+environment_mode = "separate" # verifier runs in its own container (required)
+
+[verifier.environment]
+network_mode = "no-network" # required; the verifier runs offline
+
+[agent]
+timeout_sec = 14400.0 # min 9000 (2.5h), max 28800; research workflows routinely need hours
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1 # standard sizes only: 1 / 2 / 4 / 8 / 16
+memory_mb = 2048 # standard sizes only: 1024 / 2048 / 4096 / 8192 / 16384
+storage_mb = 10240 # max 40960
+gpus = 0 # 0, or exactly 1 with the GPU option; any field may ask for one
+# gpu_types = ["H100"] # required, exactly one class, when gpus = 1
+network_mode = "public" # required; agents keep the open internet
+# never set allow_internet; the deprecated key fails validation

@@ -1,5 +1,4 @@
-# Problem specification. Values marked TBD and the peak parameters are
-# provisional until calibration (authoring/provenance/calibrate.py).
+# Problem specification for the adaptive FEM task.
 
 Domain:
   Omega = (-1,1)^2 \ ([0,1) x (-1,0])      (L-shape, lower-right quadrant removed)
@@ -14,7 +13,7 @@ Exact solution:
   u   = u_s + u_p
   u_s = r^(1/3) sin(theta / 3)                      (corner singularity, harmonic)
   u_p = A exp(-alpha |x - x0|^2)                    (interior peak)
-  A = 0.5,  alpha = 1000,  x0 = (-0.43, 0.61)       (provisional)
+  A = 0.5,  alpha = 1000,  x0 = (-0.43, 0.61)
 
 Source term (from u_p only; u_s is harmonic):
   f = 4 alpha (1 - alpha |x - x0|^2) u_p
@@ -41,6 +40,6 @@ DOF:
   Number of mesh vertices NOT on Gamma_D
   (interior vertices plus vertices strictly inside Gamma_N).
 
-Error tolerance:  TBD
-DOF budget:       TBD
-N_max iter:       TBD
+Error tolerance: 0.05
+DOF budget: 10000
+N_max iter: 54
