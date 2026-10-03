@@ -1,0 +1,4 @@
+# Harbor job outputs and logs (local validation runs)
+harbor-jobs/
+harbor-check.log
+jobs/

@@ -146,3 +146,19 @@ def test_scripts_and_dockerfiles_use_lf():
 def test_no_editor_files(pattern):
     hits = [str(p.relative_to(TASK)) for p in TASK.rglob(pattern)]
     assert not hits, f'remove before submitting: {hits}'
+
+
+def test_verifier_creates_artifact_parent():
+    # Static submission check "artifact-parent-not-created": a literal RUN line.
+    text = (TASK/'tests/Dockerfile').read_text(encoding='utf-8')
+    for artifact in TOML['artifacts']:
+        parent = artifact.rsplit('/', 1)[0]
+        assert re.search(rf'^RUN mkdir -p {re.escape(parent)}\s*$', text, re.M), \
+            f'tests/Dockerfile needs a literal "RUN mkdir -p {parent}" line'
+
+
+def test_test_sh_writes_reward_literally():
+    # Static submission check "reward-txt-missing": the literal path in a write.
+    text = (TASK/'tests/test.sh').read_text(encoding='utf-8')
+    writes = re.findall(r'(?:printf|echo)\s+([01])\s*>\s*/logs/verifier/reward\.txt', text)
+    assert {'0', '1'} <= set(writes), 'test.sh must write 0 and 1 to /logs/verifier/reward.txt literally'

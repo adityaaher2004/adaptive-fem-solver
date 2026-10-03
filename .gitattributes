@@ -1,0 +1,2 @@
+# Keep LF line endings: shell scripts and Dockerfiles in task/ run on Linux.
+* text=auto eol=lf

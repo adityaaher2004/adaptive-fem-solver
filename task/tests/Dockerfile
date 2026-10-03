@@ -19,10 +19,11 @@ RUN pip install \
         pluggy==1.6.0 \
         pygments==2.21.0
 
+# Harbor uploads the declared artifact (/app/output/submission.json) here.
+RUN mkdir -p /app/output
+
 COPY . /tests
-# /app/output: mount point for the artifact (/app/output/submission.json).
 RUN chmod +x /tests/test.sh \
- && mkdir -p /app/output \
  && cd /tests \
  && python -c "import verifier.mesh_checks, verifier.fem_ref, verifier.error; verifier.mesh_checks.load_config()"
 
