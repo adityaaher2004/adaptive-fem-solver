@@ -27,4 +27,4 @@ def test_oracle_reproduces_committed_submission(tmp_path, hashseed, threads):
 def test_verifier_error_independent_of_hash_seed():
     a, b = det.local_error(det.REFERENCE, 0), det.local_error(det.REFERENCE, 12345)
     assert a == b
-    assert abs(a - 0.0490148156) < 1e-9
+    assert abs(a - 0.0499458967) < 1e-9

@@ -146,8 +146,8 @@ def test_matches_supplied_fem_on_oracle_mesh():
     from fem.assembly import assemble_system
     from fem.solver import solve as fem_solve
     from verifier.mesh_checks import load_submission
-    _,m=load_submission(path,max_vertices=40000)
+    _,m=load_submission(path,max_vertices=11736)
     reference=fem_solve(assemble_system(fem_io.load_mesh(path),load_refinements=4))
     u=solve(m)
-    assert m.dof==5383
+    assert m.dof==2868
     np.testing.assert_allclose(u,reference,rtol=0,atol=1e-12)

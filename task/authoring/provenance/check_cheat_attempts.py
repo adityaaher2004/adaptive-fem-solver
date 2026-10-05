@@ -49,7 +49,7 @@ def run_verifier(path):
 
 def verifier_error(path):
     try:
-        _, mesh = load_submission(path, max_vertices=40016)
+        _, mesh = load_submission(path, max_vertices=11736)
     except MeshValidationError as exc:
         return f'invalid mesh: {exc}'
     return f'{energy_error(mesh, solve(mesh)).relative:.4f}'
@@ -77,7 +77,7 @@ def main():
     for name, data, reward, failing, err, good in rows:
         lines.append(f"| `{name}.json` | {make.WHY[name]} | {data['dof']} | {data['reported_error']:.4f} | "
                      f"{err} | {', '.join(f'`{t}`' for t in sorted(failing))} | {reward} |")
-    lines += ['', f'Limits: error ≤ 0.05, DOF ≤ {make.BUDGET}, history ≤ 54 records.',
+    lines += ['', f'Limits: error ≤ 0.05, DOF ≤ {make.BUDGET}, history ≤ 14 records.',
               'All attempts scored 0 for the expected reasons.' if ok else
               '**CHECK FAILED: an attempt scored 1 or failed for an unexpected reason.**', '']
     (CHEATS/'README.md').write_text('\n'.join(lines), encoding='utf-8')

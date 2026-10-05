@@ -10,7 +10,7 @@ from verifier.error import energy_error,green_energy
 
 
 def main():
-    _,mesh=load_submission(ROOT/'authoring/evidence/calibration/submission.json',max_vertices=40000)
+    _,mesh=load_submission(ROOT/'authoring/evidence/calibration/submission.json',max_vertices=11736)
     u=solve(mesh)
     a=energy_error(mesh,u)
     b=energy_error(mesh,u,order=24,max_cell_diameter=.0625,corner_panels=6)
@@ -18,7 +18,7 @@ def main():
     result=dict(default=a.__dict__,refined=b.__dict__,green=g,green_refined=g2)
     assert abs(b.reference_squared-g2)<1e-10
     assert abs(a.relative-b.relative)<1e-8
-    assert abs(b.relative-.0490148156)<1e-9
+    assert abs(b.relative-.0499458967)<1e-9
     assert abs(g-g2)<1e-10
     (ROOT/'authoring/evidence/verifier_energy.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(result,indent=2))

@@ -1,7 +1,7 @@
 {
   "tol": 0.05,
-  "dof_budget": 10000,
-  "N_max": 54,
+  "dof_budget": 2930,
+  "N_max": 14,
   "A": 0.5,
   "alpha": 1000.0,
   "x0": [

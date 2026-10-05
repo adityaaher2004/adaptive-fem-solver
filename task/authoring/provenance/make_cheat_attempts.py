@@ -51,7 +51,7 @@ WHY = {
     'fake_error': 'Coarse uniform mesh with a fabricated reported_error of 0.04',
     'hanging_nodes': 'One triangle red-refined without closure: hanging vertices on its edges',
     'wrong_domain': 'Uniform mesh of the full square, covering the removed quadrant',
-    'over_budget': 'Reference AFEM run to tol 0.03: meets the error target with too many DOF',
+    'over_budget': 'Residual AFEM run to tol 0.05: meets the error target with too many DOF (still under the vertex cap)',
 }
 
 
@@ -101,7 +101,7 @@ def graded(indicators):
         meshes.append(candidate)
 
 
-def last_records(history, limit=54):
+def last_records(history, limit=14):
     return [dict(r, iter=k) for k, r in enumerate(history[-limit:])]
 
 
@@ -140,7 +140,7 @@ def main():
     files['wrong_domain'] = submission(sq, 0.04, [dict(iter=0, dof=dirichlet_dof(sq.vertices), estimator=1.0)])
 
     with contextlib.redirect_stdout(io.StringIO()):
-        mesh, _, hist = afem.run(problem.initial_mesh(), tol=0.03, budget=10**6, N_max=200)
+        mesh, _, hist = afem.run(problem.initial_mesh(), tol=0.05, budget=10**6, N_max=200)
     hist = [dict(r) for r in hist]
     files['over_budget'] = submission(mesh, hist[-1]['reported_error'], last_records(hist))
 

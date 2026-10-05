@@ -150,7 +150,7 @@ def test_json_duplicate_and_overflow(tmp_path):
 
 def test_config():
     c=load_config()
-    assert c['dof_budget']==10000 and c['max_iter']==54
+    assert c['dof_budget']==2930 and c['max_iter']==14
     assert c['problem']=={'A':.5,'alpha':1000.,'x0':[-.43,.61]}
 
 
@@ -171,6 +171,6 @@ def test_oracle():
     # Authoring checkout only: authoring/ is not present in the verifier image.
     path=Path(__file__).resolve().parents[2]/'authoring/evidence/calibration/submission.json'
     if not path.exists(): pytest.skip('authoring evidence not available')
-    data,m=load_submission(path,max_vertices=40000)
-    assert m.dof==5383==data['dof']
+    data,m=load_submission(path,max_vertices=11736)
+    assert m.dof==2868==data['dof']
     assert m.area==pytest.approx(3)

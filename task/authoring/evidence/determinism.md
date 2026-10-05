@@ -6,7 +6,7 @@ Neither the oracle nor the verifier uses random numbers or wall-clock time; sort
 affect results are stable, and the only set iteration (NVB neighbour lookup) is over
 sets of at most one element. The runs below confirm this empirically.
 
-## Oracle (`solution/afem.py --tol 0.05 --budget 10000 --N-max 54`)
+## Oracle (`solution/afem.py --tol 0.05 --budget 2930 --N-max 14`)
 
 Each run is compared with the committed `authoring/evidence/calibration/submission.json`:
 mesh, DOF, history sequence and stop reason must be identical; floats within 1e-12 relative.
@@ -17,18 +17,18 @@ mesh, DOF, history sequence and stop reason must be identical; floats within 1e-
 | host, PYTHONHASHSEED=12345 | identical | 0.0e+00 |
 | host, 1 BLAS thread | identical | 0.0e+00 |
 | host, 4 BLAS threads | identical | 0.0e+00 |
-| environment image, 1 CPU | identical | 4.1e-16 |
-| environment image, 4 CPU | identical | 4.1e-16 |
+| environment image, 1 CPU | identical | 1.1e-15 |
+| environment image, 4 CPU | identical | 1.1e-15 |
 
 ## Verifier (relative energy error of the oracle submission)
 
 | Run | Relative energy error | Agrees |
 |---|---:|---|
-| host, PYTHONHASHSEED=0 | 0.04901481556713943 | yes |
-| host, PYTHONHASHSEED=12345 | 0.04901481556713943 | yes |
-| verifier image, 1 CPU | 0.04901481556713942 | yes |
-| verifier image, 4 CPU | 0.04901481556713942 | yes |
+| host, PYTHONHASHSEED=0 | 0.04994589665654471 | yes |
+| host, PYTHONHASHSEED=12345 | 0.04994589665654471 | yes |
+| verifier image, 1 CPU | 0.04994589665654472 | yes |
+| verifier image, 4 CPU | 0.04994589665654472 | yes |
 
-Gap between the oracle error and the tolerance: 9.852e-04.
+Gap between the oracle error and the tolerance: 5.410e-05.
 
 All runs agree.

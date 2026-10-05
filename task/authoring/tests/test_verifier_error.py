@@ -69,10 +69,10 @@ def test_matches_supplied_fem_error_on_oracle():
     from fem.mesh import Mesh
     from verifier.mesh_checks import load_submission
     from verifier.fem_ref import solve
-    _,m=load_submission(path,max_vertices=40000)
+    _,m=load_submission(path,max_vertices=11736)
     u=solve(m)
     ours=energy_error(m,u)
     theirs=fem_error.energy_error(Mesh(m.vertices,m.triangles),u)
     assert ours.relative==pytest.approx(theirs.relative,rel=1e-10,abs=0)
-    assert ours.relative==pytest.approx(.0490148156,abs=1e-9)
+    assert ours.relative==pytest.approx(.0499458967,abs=1e-9)
     assert ours.reference_squared==pytest.approx(theirs.reference_norm**2,rel=1e-10)

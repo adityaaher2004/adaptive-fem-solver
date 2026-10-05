@@ -106,7 +106,7 @@ def baseline(kind,budget,max_steps,integration_h,error_order):
     return rows,dict(reason='step_limit')
 
 
-def choose(tol,budgets,oracle,baselines,min_margin=1.5,baseline_margin=2.):
+def choose(tol,budgets,oracle,baselines,min_margin=1.5,baseline_margin=2.,n_max=None):
     """Smallest budget with budget >= min_margin * oracle DOF at which every
     baseline's best within-budget error is >= baseline_margin * tol."""
     successful=[r for r in oracle if r['reported_error']<=tol]
@@ -119,7 +119,7 @@ def choose(tol,budgets,oracle,baselines,min_margin=1.5,baseline_margin=2.):
         if (budget>=min_margin*oracle_dof and all(b is not None for b in best)
                 and min(best)>=baseline_margin*tol):
             return dict(tol=tol,dof_budget=budget,
-                        N_max=max(1,math.ceil(1.5*len(oracle))))
+                        N_max=n_max if n_max else max(1,math.ceil(1.5*len(oracle))))
     return None
 
 
@@ -160,10 +160,12 @@ def theta_sweep(selected,integration_h,error_order):
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument('--tol',type=float,default=.05)
-    p.add_argument('--budgets',type=int,nargs='+',default=[10000,12000])
+    p.add_argument('--budgets',type=int,nargs='+',default=[2930])
     p.add_argument('--max-solves',type=int,default=100)
     p.add_argument('--baseline-steps',type=int,default=100)
     p.add_argument('--baseline-margin',type=float,default=2.)
+    p.add_argument('--min-margin',type=float,default=1.5,help='required budget / oracle DOF')
+    p.add_argument('--n-max',type=int,default=None,help='fixed N_max (default: 1.5 x oracle solves)')
     p.add_argument('--integration-h',type=float,default=.04)
     p.add_argument('--error-order',type=int,default=12)
     p.add_argument('--config',type=Path,default=ROOT/'authoring/provenance/selected_config.json')
@@ -179,7 +181,7 @@ def main(argv=None):
     args.config.unlink(missing_ok=True)
 
     with contextlib.redirect_stdout(io.StringIO()):
-        mesh,u,history=afem.run(problem.initial_mesh(),tol=args.tol,budget=max(args.budgets),
+        mesh,u,history=afem.run_targeted(problem.initial_mesh(),tol=args.tol,budget=max(args.budgets),
                                 N_max=args.max_solves,integration_h=args.integration_h,error_order=args.error_order)
     # Finer settings on the same final mesh: quadrature sensitivity (same code paths).
     checked=measure(mesh,args.integration_h/2,max(20,args.error_order+4))
@@ -190,7 +192,10 @@ def main(argv=None):
     for kind in ('uniform','corner','peak_ignored'):
         baselines[kind],stops[kind]=baseline(kind,max(args.budgets),args.baseline_steps,
                                              args.integration_h,args.error_order)
-    selected=choose(args.tol,args.budgets,history,baselines,baseline_margin=args.baseline_margin)
+    selected=choose(args.tol,args.budgets,history,baselines,min_margin=args.min_margin,
+                    baseline_margin=args.baseline_margin,n_max=args.n_max)
+    if selected and len(history)>selected['N_max']:
+        selected=None   # the oracle itself must fit the solve limit
     if (not stable or checked['relative_error']>args.tol or abs(reference-green)>1e-8*green
             or any(s['reason']!='budget' for s in stops.values())):
         selected=None
@@ -220,7 +225,7 @@ def main(argv=None):
            'N_max counts solves including the initial solve.','',
            f'## Strategies at DOF budget {budget}','',
            '| Strategy | DOF | Relative energy error | Error / tol |','|---|---:|---:|---:|',
-           f'| Residual AFEM (theta 0.4, {len(history)} solves) | {history[-1]["dof"]} | '
+           f'| Reference oracle (targeted, {len(history)} solves) | {history[-1]["dof"]} | '
            f'{history[-1]["reported_error"]:.6g} | {history[-1]["reported_error"]/args.tol:.2f} |']
     for kind,rows in baselines.items():
         r=best(rows)
@@ -248,7 +253,8 @@ def main(argv=None):
         args.config.write_text(json.dumps(selected,indent=2)+'\n',encoding='utf-8')
         lines+=['## Selected','',f'`{rel(args.config)}`:','','```json',json.dumps(selected,indent=2),'```','',
                 f'Budget / oracle DOF: {selected["dof_budget"]/history[-1]["dof"]:.3f}. '
-                'N_max is 1.5 x the oracle\'s solves, rounded up.',
+                + (f'N_max fixed at {args.n_max} (the oracle uses {len(history)} solves).' if args.n_max else
+                   'N_max is 1.5 x the oracle\'s solves, rounded up.'),
                 'Copy tol, dof_budget and N_max into specs.txt and tests/config.json, and freeze the peak '
                 'parameters in specs.txt (TODO 1.13).','',
                 '## Reference oracle run','',

@@ -8,13 +8,13 @@ file reports its DOF and true error honestly, so it fails only for its intended 
 
 | File | What it is | DOF | Reported error | Verifier result | Failing tests | Reward |
 |---|---|---:|---:|---|---|---:|
-| `uniform_mesh.json` | Largest uniform refinement within the DOF budget; error far above tolerance | 2976 | 0.4309 | 0.4309 | `test_computed_error` | 0 |
-| `corner_only_graded.json` | Geometric grading toward the corner only (never looks at f); misses the peak | 9844 | 0.3854 | 0.3854 | `test_computed_error` | 0 |
-| `peak_ignored.json` | Residual AFEM that solves and marks with f = 0; peak never refined | 9097 | 0.3849 | 0.3849 | `test_computed_error` | 0 |
+| `uniform_mesh.json` | Largest uniform refinement within the DOF budget; error far above tolerance | 720 | 0.6013 | 0.6013 | `test_computed_error` | 0 |
+| `corner_only_graded.json` | Geometric grading toward the corner only (never looks at f); misses the peak | 2436 | 0.5252 | 0.5252 | `test_computed_error` | 0 |
+| `peak_ignored.json` | Residual AFEM that solves and marks with f = 0; peak never refined | 2744 | 0.4849 | 0.4849 | `test_computed_error` | 0 |
 | `fake_error.json` | Coarse uniform mesh with a fabricated reported_error of 0.04 | 36 | 0.0400 | 0.7868 | `test_computed_error`, `test_reported_error` | 0 |
 | `hanging_nodes.json` | One triangle red-refined without closure: hanging vertices on its edges | 38 | 0.7868 | invalid mesh: boundary edge or vertex is not on domain boundary | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 0 |
 | `wrong_domain.json` | Uniform mesh of the full square, covering the removed quadrant | 45 | 0.0400 | invalid mesh: vertex outside domain or in cut-out | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 0 |
-| `over_budget.json` | Reference AFEM run to tol 0.03: meets the error target with too many DOF | 15014 | 0.0287 | 0.0287 | `test_computed_error`, `test_dof_budget`, `test_reported_error` | 0 |
+| `over_budget.json` | Residual AFEM run to tol 0.05: meets the error target with too many DOF (still under the vertex cap) | 5383 | 0.0490 | 0.0490 | `test_computed_error`, `test_dof_budget`, `test_reported_error` | 0 |
 
-Limits: error ≤ 0.05, DOF ≤ 10000, history ≤ 54 records.
+Limits: error ≤ 0.05, DOF ≤ 2930, history ≤ 14 records.
 All attempts scored 0 for the expected reasons.

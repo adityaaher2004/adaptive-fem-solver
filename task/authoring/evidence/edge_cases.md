@@ -6,43 +6,43 @@ scored by the sealed `tests/test_submission.py` with the `tests/test.sh` reward 
 
 | Case | Variant | Expected | Reward | Failing tests | Time |
 |---|---|---:|---:|---|---:|
-| `oracle` | unchanged oracle submission | 1 | 1 | — | 4.9 s |
-| `renumbered` | vertices and triangles randomly permuted | 1 | 1 | — | 5.0 s |
-| `rotated_triangles` | each triangle cyclically rotated (still CCW) | 1 | 1 | — | 4.9 s |
-| `integer_coordinates` | whole-number coordinates written as JSON integers | 1 | 1 | — | 5.1 s |
-| `negative_zero` | every 0.0 coordinate written as -0.0 (Neumann edge, theta=0 edge, origin) | 1 | 1 | — | 4.9 s |
-| `extra_keys` | extra top-level and history keys, nested values | 1 | 1 | — | 4.3 s |
-| `history_54` | exactly N_max history records | 1 | 1 | — | 4.8 s |
-| `reported_1.9x` | reported_error 1.9x the true error (inside factor 2) | 1 | 1 | — | 5.0 s |
-| `reported_0.55x` | reported_error 0.55x the true error (inside factor 2) | 1 | 1 | — | 4.9 s |
-| `pretty_printed` | extra whitespace/newlines in JSON | 1 | 1 | — | 4.8 s |
-| `clockwise_triangle` | one triangle clockwise | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 1.9 s |
-| `boundary_ulp_inside` | boundary vertex at x = -1 + 1 ulp (not exactly on the side) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 2.0 s |
-| `boundary_ulp_outside` | boundary vertex at x = -1.0000000000000002 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 1.9 s |
-| `nan_literal` | NaN literal in vertices | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.1 s |
-| `infinity_literal` | -Infinity literal in vertices | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `overflow_number` | number that overflows to -inf | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `nan_in_history_extra` | NaN hidden in an extra history key | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.1 s |
-| `duplicate_key` | duplicate "dof" key | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `dof_as_float` | dof written as 5383.0 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 1.9 s |
-| `dof_as_string` | dof written as a string | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.1 s |
-| `iter_as_float` | history iter written as 0.0 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `estimator_negative` | negative estimator | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 1.9 s |
-| `reported_error_string` | reported_error as a string | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `reported_error_negative` | negative reported_error | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `reported_2.1x` | reported_error 2.1x the true error | 0 | 0 | `test_reported_error` | 5.2 s |
-| `reported_0.45x` | reported_error 0.45x the true error | 0 | 0 | `test_reported_error` | 5.1 s |
-| `history_55` | N_max + 1 history records | 0 | 0 | `test_history_length` | 5.0 s |
-| `history_empty` | empty history | 0 | 0 | `test_history_length` | 5.0 s |
-| `missing_history` | history key missing | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.2 s |
-| `bool_coordinate` | boolean coordinate | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 1.9 s |
-| `index_out_of_range` | triangle index out of range | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 2.0 s |
-| `index_huge` | triangle index beyond int64 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 2.0 s |
-| `top_level_array` | top-level JSON array | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 1.9 s |
-| `empty_file` | empty file | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `truncated_json` | syntactically broken JSON | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.0 s |
-| `utf8_bom` | UTF-8 byte-order mark (not allowed by RFC 8259) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 1.9 s |
-| `oversize_vertices` | 40017 vertices (cap 40016) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.1 s |
-| `oversize_triangles` | 80033 triangles (cap 80032) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 2.1 s |
+| `oracle` | unchanged oracle submission | 1 | 1 | — | 18.5 s |
+| `renumbered` | vertices and triangles randomly permuted | 1 | 1 | — | 15.7 s |
+| `rotated_triangles` | each triangle cyclically rotated (still CCW) | 1 | 1 | — | 13.1 s |
+| `integer_coordinates` | whole-number coordinates written as JSON integers | 1 | 1 | — | 12.8 s |
+| `negative_zero` | every 0.0 coordinate written as -0.0 (Neumann edge, theta=0 edge, origin) | 1 | 1 | — | 12.0 s |
+| `extra_keys` | extra top-level and history keys, nested values | 1 | 1 | — | 12.4 s |
+| `history_14` | exactly N_max history records | 1 | 1 | — | 12.8 s |
+| `reported_1.9x` | reported_error 1.9x the true error (inside factor 2) | 1 | 1 | — | 13.2 s |
+| `reported_0.55x` | reported_error 0.55x the true error (inside factor 2) | 1 | 1 | — | 14.4 s |
+| `pretty_printed` | extra whitespace/newlines in JSON | 1 | 1 | — | 21.9 s |
+| `clockwise_triangle` | one triangle clockwise | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 7.0 s |
+| `boundary_ulp_inside` | boundary vertex at x = -1 + 1 ulp (not exactly on the side) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 6.7 s |
+| `boundary_ulp_outside` | boundary vertex at x = -1.0000000000000002 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 7.6 s |
+| `nan_literal` | NaN literal in vertices | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 6.8 s |
+| `infinity_literal` | -Infinity literal in vertices | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 8.5 s |
+| `overflow_number` | number that overflows to -inf | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 7.2 s |
+| `nan_in_history_extra` | NaN hidden in an extra history key | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 8.7 s |
+| `duplicate_key` | duplicate "dof" key | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 7.2 s |
+| `dof_as_float` | dof written as 2868.0 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 6.7 s |
+| `dof_as_string` | dof written as a string | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 7.6 s |
+| `iter_as_float` | history iter written as 0.0 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 12.2 s |
+| `estimator_negative` | negative estimator | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 10.5 s |
+| `reported_error_string` | reported_error as a string | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 11.9 s |
+| `reported_error_negative` | negative reported_error | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 9.0 s |
+| `reported_2.1x` | reported_error 2.1x the true error | 0 | 0 | `test_reported_error` | 15.0 s |
+| `reported_0.45x` | reported_error 0.45x the true error | 0 | 0 | `test_reported_error` | 14.8 s |
+| `history_15` | N_max + 1 history records | 0 | 0 | `test_history_length` | 12.4 s |
+| `history_empty` | empty history | 0 | 0 | `test_history_length` | 12.1 s |
+| `missing_history` | history key missing | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 7.2 s |
+| `bool_coordinate` | boolean coordinate | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 8.2 s |
+| `index_out_of_range` | triangle index out of range | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 9.4 s |
+| `index_huge` | triangle index beyond int64 | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_mesh_valid`, `test_reported_error` | 9.6 s |
+| `top_level_array` | top-level JSON array | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 9.2 s |
+| `empty_file` | empty file | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 11.0 s |
+| `truncated_json` | syntactically broken JSON | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 17.7 s |
+| `utf8_bom` | UTF-8 byte-order mark (not allowed by RFC 8259) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 11.8 s |
+| `oversize_vertices` | 11737 vertices (cap 11736) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 8.4 s |
+| `oversize_triangles` | 23473 triangles (cap 23472) | 0 | 0 | `test_computed_error`, `test_dof_budget`, `test_dof_matches_reported`, `test_exists_and_parses`, `test_history_length`, `test_mesh_valid`, `test_reported_error`, `test_schema` | 7.8 s |
 
 All cases scored as expected.

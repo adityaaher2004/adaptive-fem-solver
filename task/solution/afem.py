@@ -1,10 +1,14 @@
-"""Reference AFEM for authoring/calibration; exact energy is used only to stop.
+"""Reference solver (oracle) for the adaptive FEM task.
 
-Marking uses squared residual indicators, never exact local errors. DOF counts
-free vertices. N_max counts solves (including the initial solve). A full marked
-set plus NVB conformity closure is accepted only if it fits the budget.
-The nonhomogeneous Dirichlet interpolation error is included in the monitored
-true energy error, but not in the requested three-term residual indicator.
+Default strategy `targeted` (run_targeted): build a nested newest-vertex-
+bisection sequence a priori by Dörfler marking of the exact interpolation
+error (no solves), then binary-search it with FEM solves for the smallest mesh
+whose true relative energy error meets the tolerance within the DOF budget.
+
+Strategy `residual` (run): classic SOLVE-ESTIMATE-MARK-REFINE with a residual
+estimator and Dörfler marking; kept as a calibration baseline.
+
+DOF counts free vertices. N_max counts solves (history records).
 """
 import argparse
 from functools import lru_cache
@@ -175,7 +179,7 @@ def newest_vertex_bisection(mesh,marked):
     return Mesh(vertices,list(active.values()))
 
 
-def run(mesh,*,tol=.1,budget=10000,N_max=80,theta=.4,integration_h=.04,error_order=12):
+def run(mesh,*,tol=.1,budget=2930,N_max=80,theta=.4,integration_h=.04,error_order=12):
     """Reference solve: exact global error monitors tol; residuals mark cells."""
     if not np.isfinite(tol) or tol<=0 or budget<0 or N_max<1 or not 0<theta<=1:
         raise ValueError('invalid stopping limits or theta')
@@ -211,20 +215,120 @@ def run(mesh,*,tol=.1,budget=10000,N_max=80,theta=.4,integration_h=.04,error_ord
     return mesh,u,history
 
 
+_Q,_W=np.polynomial.legendre.leggauss(8)
+_Q,_W=(_Q+1)/2,_W/2
+_T,_S=[a.ravel() for a in np.meshgrid(_Q,_Q,indexing='ij')]
+_WW=(_W[:,None]*_W[None,:]).ravel()
+
+
+def interpolation_error(mesh,subdivisions=2):
+    """Per-triangle ||grad(u - I_h u)||_T^2 for the exact u (no FEM solve).
+
+    Duffy rules on integration-only red subcells; subcells touching the
+    origin use x=t^3*((1-s)a+s b), which removes the r^(-2/3) singularity.
+    """
+    nodal=problem.u(mesh.vertices)
+    _,_,_,G=element_geometry(mesh)
+    grad=np.einsum('ti,tij->tj',nodal[mesh.triangles],G)
+    cells,owner=mesh.vertices[mesh.triangles],np.arange(mesh.n_triangles)
+    for _ in range(subdivisions):
+        a,b,c=cells[:,0],cells[:,1],cells[:,2]
+        ab,bc,ca=(a+b)/2,(b+c)/2,(c+a)/2
+        cells=np.stack([np.stack(t,1) for t in [(a,ab,ca),(ab,b,bc),(ca,bc,c),(ab,bc,ca)]],1).reshape(-1,3,2)
+        owner=np.repeat(owner,4); grad=np.repeat(grad,4,axis=0)
+    out=np.zeros(mesh.n_triangles)
+    at_origin=np.all(cells==0,axis=2); corner=at_origin.any(1)
+    for special in (False,True):
+        sel=corner==special; v=cells[sel]
+        if not len(v): continue
+        if special:
+            k=np.argmax(at_origin[sel],1); v=v[np.arange(len(v))[:,None],(k[:,None]+np.arange(3))%3]
+        a,b=v[:,1]-v[:,0],v[:,2]-v[:,0]
+        det=np.abs(a[:,0]*b[:,1]-a[:,1]*b[:,0])
+        radius,jac=(_T**3,3*_T**5) if special else (_T,_T)
+        pts=v[:,None,0]+radius[None,:,None]*((1-_S)[None,:,None]*a[:,None]+_S[None,:,None]*b[:,None])
+        diff=problem.grad_u(pts)-grad[sel][:,None,:]
+        np.add.at(out,owner[sel],det*np.sum(_WW*jac*np.sum(diff*diff,-1),1))
+    return out
+
+
+def run_targeted(mesh,*,tol=.05,budget=2930,N_max=14,coarse_theta=.1,fine_theta=.02,fine_from=2400,
+                 integration_h=.04,error_order=12):
+    """Reference oracle: a priori NVB sequence, then binary search with solves.
+
+    1. Without solving, build nested NVB meshes by Dörfler marking of the
+       exact interpolation error (coarse_theta, then fine_theta once the DOF
+       reach fine_from, for fine steps near the budget) until the next mesh
+       would exceed the budget.
+    2. Binary-search that sequence with FEM solves (history records) for the
+       smallest mesh whose true relative energy error is <= tol. If the last
+       solve was not on the chosen mesh, it is solved once more so that
+       history[-1] describes the submitted mesh.
+    """
+    if not np.isfinite(tol) or tol<=0 or budget<0 or N_max<2:
+        raise ValueError('invalid stopping limits')
+    def dofs(m): return int(np.count_nonzero(~boundary_masks(m)[0]))
+    if dofs(mesh)>budget:
+        raise ValueError('initial mesh exceeds DOF budget')
+    sequence,estimates=[mesh],[]
+    while True:
+        eta=interpolation_error(sequence[-1])
+        estimates.append(float(np.sqrt(eta.sum())))
+        theta=coarse_theta if dofs(sequence[-1])<fine_from else fine_theta
+        candidate=newest_vertex_bisection(sequence[-1],dorfler(eta,theta))
+        if dofs(candidate)>budget: break
+        sequence.append(candidate)
+    print(f'a priori sequence: {len(sequence)} meshes, DOF {dofs(sequence[0])}..{dofs(sequence[-1])}',flush=True)
+    history,solved={},[]
+    def solve_mesh(i):
+        m=sequence[i]
+        load,_=volume_terms(m,problem.f,integration_h)
+        load+=assemble_load(m,lambda p:0.,problem.g_N)
+        system=eliminate_dirichlet(m,assemble_stiffness(m),load)
+        u=solve(system)
+        e=energy_error(m,u,order=error_order).relative
+        row=dict(iter=len(solved),dof=len(system.free_vertices),vertices=m.n_vertices,triangles=m.n_triangles,
+                 reported_error=e,estimator=estimates[i],sequence_index=i)
+        solved.append(row); history[i]=(row,u)
+        print(f'{row["iter"]:3d} mesh {i:3d} DOF={row["dof"]:6d} error={e:.6e}',flush=True)
+        return e
+    lo,hi,best=0,len(sequence)-1,None
+    while lo<=hi and len(solved)<N_max-1:
+        mid=(lo+hi)//2
+        if solve_mesh(mid)<=tol: best,hi=mid,mid-1
+        else: lo=mid+1
+    if best is None:
+        best=len(sequence)-1
+        if best not in history: solve_mesh(best)
+        reason='budget' if history[best][0]['reported_error']>tol else 'tol'
+    else:
+        reason='tol'
+    if solved[-1]['sequence_index']!=best:
+        solve_mesh(best)
+    solved[-1]['stop_reason']=reason
+    return sequence[best],history[best][1],solved
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--strategy',choices=('targeted','residual'),default='targeted',
+                        help='targeted: a priori sequence + binary search (default); residual: Dörfler AFEM')
     parser.add_argument('--mesh',type=Path)
     parser.add_argument('--output',type=Path,default=Path('/app/output/submission.json'))
     parser.add_argument('--tol',type=float,default=.1)
-    parser.add_argument('--budget',type=int,default=10000)
+    parser.add_argument('--budget',type=int,default=2930)
     parser.add_argument('--N-max', '--N_max',dest='N_max',type=int,default=80)
     parser.add_argument('--theta',type=float,default=.4)
     parser.add_argument('--integration-h',type=float,default=.04)
     parser.add_argument('--error-order',type=int,default=12)
     args=parser.parse_args(argv)
     mesh=load_mesh(args.mesh) if args.mesh else problem.initial_mesh()
-    mesh,u,history=run(mesh,tol=args.tol,budget=args.budget,N_max=args.N_max,
-                       theta=args.theta,integration_h=args.integration_h,error_order=args.error_order)
+    if args.strategy=='targeted':
+        mesh,u,history=run_targeted(mesh,tol=args.tol,budget=args.budget,N_max=args.N_max,
+                                    integration_h=args.integration_h,error_order=args.error_order)
+    else:
+        mesh,u,history=run(mesh,tol=args.tol,budget=args.budget,N_max=args.N_max,
+                           theta=args.theta,integration_h=args.integration_h,error_order=args.error_order)
     last=history[-1]
     write_submission(args.output,mesh,dof=last['dof'],reported_error=last['reported_error'],history=history)
     print('Stopped:',last['stop_reason'],'Output:',args.output)

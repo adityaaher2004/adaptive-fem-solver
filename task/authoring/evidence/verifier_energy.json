@@ -1,13 +1,13 @@
 {
   "default": {
-    "error_squared": 0.003922090023539348,
-    "reference_squared": 1.6325361700004277,
-    "relative": 0.04901481556713943
+    "error_squared": 0.004072512637203994,
+    "reference_squared": 1.6325361700004282,
+    "relative": 0.04994589665654471
   },
   "refined": {
-    "error_squared": 0.003922090023539358,
-    "reference_squared": 1.6325361700004293,
-    "relative": 0.04901481556713947
+    "error_squared": 0.004072512637204007,
+    "reference_squared": 1.6325361700004277,
+    "relative": 0.0499458966565448
   },
   "green": 1.6325361700004422,
   "green_refined": 1.6325361700004422
