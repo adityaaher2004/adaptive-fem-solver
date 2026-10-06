@@ -26,12 +26,12 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
 REFERENCE = ROOT/'authoring/evidence/calibration/submission.json'
-SOLVE_ARGS = ['--tol', '0.05', '--budget', '2930', '--N-max', '14']
+SOLVE_ARGS = ['--tol', '0.05', '--budget', '3500', '--N-max', '50']
 FLOAT_RTOL = 1e-12
 ERROR_SNIPPET = ("import sys; sys.path.insert(0, {tests!r}); "
                  "from verifier.mesh_checks import load_submission; from verifier.fem_ref import solve; "
                  "from verifier.error import energy_error; "
-                 "_, m = load_submission({path!r}, max_vertices=11736); "
+                 "_, m = load_submission({path!r}, max_vertices=14016); "
                  "print(repr(energy_error(m, solve(m)).relative))")
 
 

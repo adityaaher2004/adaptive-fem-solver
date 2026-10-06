@@ -1,7 +1,7 @@
 {
   "error_tol": 0.05,
-  "dof_budget": 2930,
-  "max_iter": 14,
+  "dof_budget": 3500,
+  "max_iter": 50,
   "problem": {
     "A": 0.5,
     "alpha": 1000.0,

@@ -12,15 +12,16 @@ The oracle nodal vector is recomputed with `verifier.fem_ref.solve`.
 
 | Method/settings | Reference energy squared | Oracle relative energy error |
 |---|---:|---:|
-| Direct, order 16, diameter 0.125, 4 corner panels | 1.6325361700004277 | 0.04901481556713943 |
-| Direct, order 24, diameter 0.0625, 6 corner panels | 1.6325361700004293 | 0.04901481556713946 |
+| Direct, order 16, diameter 0.125, 4 corner panels | 1.6325361700004277 | 0.04883766451166076 |
+| Direct, order 24, diameter 0.0625, 6 corner panels | 1.632536170000428 | 0.04883766451166085 |
 | Green identity, adaptive tolerance 2e-12 per subintegral | 1.6325361700004422 | — |
 | Green identity, adaptive tolerance 5e-13 per subintegral | 1.6325361700004422 | — |
 
-The independent-method discrepancy is about 1.3e-14, below the requested
+The independent-method discrepancy is about 1.4e-14, below the requested
 1e-10. The supplied target 1.632536170000 is its rounded value.
-The observed oracle relative-error change is about 3e-17, negligible against
-the 0.05 pass threshold and the oracle's approximately 9.85e-4 margin.
+The observed oracle relative-error change is about 9e-17, negligible against
+the 0.05 pass threshold and the oracle's approximately 1.16e-03 margin
+(oracle submission: 3073 DOF, 44 solves).
 These are empirical convergence checks, not rigorous interval error bounds.
 
 ## Direct method

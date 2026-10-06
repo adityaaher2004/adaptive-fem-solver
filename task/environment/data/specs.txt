@@ -41,5 +41,5 @@ DOF:
   (interior vertices plus vertices strictly inside Gamma_N).
 
 Error tolerance: 0.05
-DOF budget: 2930
-N_max iter: 14
+DOF budget: 3500
+N_max iter: 50

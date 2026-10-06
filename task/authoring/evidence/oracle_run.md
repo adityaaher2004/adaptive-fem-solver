@@ -6,17 +6,17 @@ plain Docker (engine 29.8.0, host Windows), with task.toml resources
 
 | Step | Result |
 |---|---|
-| Environment container | `bash /solution/solve.sh`: exit 0, 96 s |
+| Environment container | `bash /solution/solve.sh`: exit 0, 39 s |
 | Artifact `/app/output/submission.json` | present |
-| Submission | 5470 vertices, 10813 triangles, DOF 5383, reported error 0.0490148156, 36 history records |
-| Verifier `tests/test.sh` | 25 s; CTRF summary {'tests': 8, 'passed': 8, 'failed': 0, 'skipped': 0} |
+| Submission | 3164 vertices, 6192 triangles, DOF 3073, reported error 0.0488376645, 44 history records |
+| Verifier `tests/test.sh` | 15 s; CTRF summary {'tests': 8, 'passed': 8, 'failed': 0, 'skipped': 0} |
 | **Reward** | **1** (required: 1) |
 
 Last lines of the solver log:
 
 ```
- 35 DOF=  5383 error=4.901482e-02 eta=2.179743e-01
+ 44 refine   DOF= 3073 error=0.0488376645117
 Stopped: tol Output: /app/output/submission.json
 ```
 
-Still to do: repeat under Harbor itself (`harbor` CLI not available on the authoring machine).
+Harbor 0.23.0: `harbor run -p . -a oracle -e docker` → **reward 1** (171 s).

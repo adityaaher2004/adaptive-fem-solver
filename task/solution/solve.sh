@@ -11,8 +11,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Stopping limits: the task's tolerance / DOF budget / N_max from specs.txt
 # (selected by authoring/provenance/calibrate.py, see selected_config.json).
 TOL=0.05
-BUDGET=2930
-N_MAX=14
+BUDGET=3500
+N_MAX=50
 
 exec python3 "$SCRIPT_DIR/afem.py" \
     --tol "$TOL" --budget "$BUDGET" --N-max "$N_MAX" \

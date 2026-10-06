@@ -1,10 +1,45 @@
-a priori sequence: 97 meshes, DOF 0..2911
-  0 mesh  48 DOF=   237 error=1.916497e-01
-  1 mesh  72 DOF=  1054 error=8.240435e-02
-  2 mesh  84 DOF=  2318 error=5.521636e-02
-  3 mesh  90 DOF=  2661 error=5.172963e-02
-  4 mesh  93 DOF=  2783 error=5.064723e-02
-  5 mesh  95 DOF=  2868 error=4.994590e-02
-  6 mesh  94 DOF=  2824 error=5.029299e-02
-  7 mesh  95 DOF=  2868 error=4.994590e-02
+  1 initial  DOF=    0 error=0.968201866064
+  2 refine   DOF=    1 error=0.945147176461
+  3 refine   DOF=    1 error=0.945429301067
+  4 refine   DOF=    4 error=0.937587993313
+  5 refine   DOF=    6 error=0.935025675538
+  6 refine   DOF=   11 error=0.855239361485
+  7 refine   DOF=   15 error=0.848808448634
+  8 refine   DOF=   19 error=0.847353230969
+  9 refine   DOF=   23 error=0.732490723851
+ 10 refine   DOF=   36 error=0.676086013531
+ 11 refine   DOF=   41 error=0.626407882468
+ 12 refine   DOF=   49 error=0.597331072608
+ 13 refine   DOF=   52 error=0.54326547771
+ 14 refine   DOF=   57 error=0.492334053977
+ 15 refine   DOF=   65 error=0.474294286288
+ 16 refine   DOF=   69 error=0.451337144554
+ 17 refine   DOF=   77 error=0.433339351959
+ 18 refine   DOF=   84 error=0.391603802194
+ 19 refine   DOF=   92 error=0.342014568459
+ 20 refine   DOF=  106 error=0.326585131756
+ 21 refine   DOF=  118 error=0.291818611166
+ 22 refine   DOF=  141 error=0.267704522589
+ 23 refine   DOF=  167 error=0.244261138771
+ 24 refine   DOF=  193 error=0.223755217076
+ 25 refine   DOF=  221 error=0.20396618649
+ 26 refine   DOF=  267 error=0.182677007961
+ 27 refine   DOF=  323 error=0.1666458565
+ 28 refine   DOF=  384 error=0.152526715198
+ 29 refine   DOF=  457 error=0.137770137091
+ 30 refine   DOF=  545 error=0.123611394605
+ 31 refine   DOF=  651 error=0.112671909744
+ 32 refine   DOF=  783 error=0.103053552446
+ 33 refine   DOF=  936 error=0.0927477439823
+ 34 refine   DOF= 1136 error=0.0839072472906
+ 35 refine   DOF= 1355 error=0.077311556275
+ 36 refine   DOF= 1651 error=0.069210289881
+ 37 refine   DOF= 2004 error=0.0623663003719
+ 38 refine   DOF= 2391 error=0.0573916108781
+ 39 refine   DOF= 2878 error=0.0523743779152
+ 40 refine   DOF= 2985 error=0.0508155407461
+ 41 refine   DOF= 2988 error=0.0503844321124
+ 42 refine   DOF= 2993 error=0.0500340399669
+ 43 refine   DOF= 3022 error=0.0495290730115
+ 44 refine   DOF= 3073 error=0.0488376645117
 Stopped: tol Output: authoring\evidence\calibration\submission.json

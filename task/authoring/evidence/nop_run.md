@@ -6,9 +6,9 @@ plain Docker (engine 29.8.0, host Windows), with task.toml resources
 
 | Step | Result |
 |---|---|
-| Environment container | nothing executed: exit 0, 2 s |
+| Environment container | nothing executed: exit 0, 3 s |
 | Artifact `/app/output/submission.json` | absent |
-| Verifier `tests/test.sh` | 9 s; CTRF summary {'tests': 8, 'passed': 0, 'failed': 8, 'skipped': 0} |
+| Verifier `tests/test.sh` | 13 s; CTRF summary {'tests': 8, 'passed': 0, 'failed': 8, 'skipped': 0} |
 | **Reward** | **0** (required: 0) |
 
-Still to do: repeat under Harbor itself (`harbor` CLI not available on the authoring machine).
+Harbor 0.23.0: `harbor run -p . -a nop -e docker` → **reward 0** (115 s).

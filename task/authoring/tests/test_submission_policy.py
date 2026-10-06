@@ -33,10 +33,10 @@ def test_far_from_threshold_no_reintegration(monkeypatch):
     assert len(calls)==1
 
 
-@pytest.mark.parametrize('count',[0,15])
+@pytest.mark.parametrize('count',[0,51])
 def test_history_bounds(count):
     with pytest.raises(AssertionError):
-        policy.test_history_length({'history':[{}]*count},{'max_iter':14})
+        policy.test_history_length({'history':[{}]*count},{'max_iter':50})
 
 
 def test_fabricated_zero_error_rejected():

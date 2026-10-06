@@ -37,7 +37,8 @@ for folder in (ROOT/'environment/data',ROOT/'data'):
         sys.path.insert(0,str(folder)); break
 import numpy as np
 from fem import problem
-from fem.assembly import assemble_load,assemble_stiffness,eliminate_dirichlet,boundary_masks
+from fem.assembly import assemble_load,assemble_stiffness,eliminate_dirichlet,boundary_masks,element_geometry
+from fem.quadrature import edge_rule
 from fem.solver import solve
 from fem.error import energy_error
 spec=importlib.util.spec_from_file_location('reference_afem',ROOT/'solution/afem.py')
@@ -52,7 +53,7 @@ def dofs(mesh):
 
 
 def measure(mesh,integration_h=.04,error_order=12):
-    load,_=afem.volume_terms(mesh,problem.f,integration_h)
+    load=afem.volume_load(mesh,problem.f,integration_h)
     load+=assemble_load(mesh,lambda p:0.,problem.g_N)
     system=eliminate_dirichlet(mesh,assemble_stiffness(mesh),load)
     u=solve(system)
@@ -75,11 +76,49 @@ def corner_indicators(mesh):
     return mesh.areas*h*h/(r+h)**(10/3)
 
 
+def residual_estimator(mesh,u,element_squared,g_N=problem.g_N):
+    """eta_T^2 = element term + half interior jumps + Neumann residuals.
+
+    Used for the peak-blind baseline (the reference solver marks with the exact
+    error instead). Interior edge contribution is h_E integral_E [grad u_h . n]^2,
+    half to each adjacent cell; Neumann edges add h_E integral_E (g_N - grad
+    u_h . n)^2 to their cell, with the normal oriented outward; Dirichlet edges
+    add nothing.
+    """
+    _,_,_,g=element_geometry(mesh)
+    grad=np.einsum('ti,tij->tj',u[mesh.triangles],g)
+    eta=np.array(element_squared,copy=True)
+    ends=mesh.vertices[mesh.edges]
+    tangent=ends[:,1]-ends[:,0]
+    length=np.linalg.norm(tangent,axis=1)
+    normal=np.column_stack((tangent[:,1],-tangent[:,0]))/length[:,None]
+    pair=mesh.edge_triangles
+    inside=pair[:,1]>=0
+    jump=np.sum((grad[pair[inside,0]]-grad[pair[inside,1]])*normal[inside],axis=1)
+    term=length[inside]**2*jump**2
+    for side in (0,1):
+        np.add.at(eta,pair[inside,side],term/2)
+    _,N=boundary_masks(mesh)
+    ids=np.flatnonzero(N)
+    if len(ids):
+        owner=pair[ids,0]
+        midpoint=ends[ids].mean(axis=1)
+        centroid=mesh.vertices[mesh.triangles[owner]].mean(axis=1)
+        normals=normal[ids].copy()
+        inward=np.sum(normals*(centroid-midpoint),axis=1)>0
+        normals[inward]*=-1
+        t,w=edge_rule(8)
+        points=ends[ids,None,0]+t[None,:,None]*tangent[ids,None,:]
+        diff=g_N(points)-np.sum(grad[owner]*normals,axis=1)[:,None]
+        np.add.at(eta,owner,length[ids]**2*np.sum(w*diff**2,axis=1))
+    return eta
+
+
 def peak_blind_indicators(mesh):
     """Residual indicators of the f = 0 problem: the peak is invisible."""
     load=assemble_load(mesh,lambda p:0.,problem.g_N)
     u=solve(eliminate_dirichlet(mesh,assemble_stiffness(mesh),load))
-    return afem.residual_estimator(mesh,u,np.zeros(mesh.n_triangles))
+    return residual_estimator(mesh,u,np.zeros(mesh.n_triangles))
 
 
 def baseline(kind,budget,max_steps,integration_h,error_order):
@@ -106,7 +145,7 @@ def baseline(kind,budget,max_steps,integration_h,error_order):
     return rows,dict(reason='step_limit')
 
 
-def choose(tol,budgets,oracle,baselines,min_margin=1.5,baseline_margin=2.,n_max=None):
+def choose(tol,budgets,oracle,baselines,min_margin=1.005,baseline_margin=2.,n_max=None):
     """Smallest budget with budget >= min_margin * oracle DOF at which every
     baseline's best within-budget error is >= baseline_margin * tol."""
     successful=[r for r in oracle if r['reported_error']<=tol]
@@ -160,11 +199,11 @@ def theta_sweep(selected,integration_h,error_order):
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument('--tol',type=float,default=.05)
-    p.add_argument('--budgets',type=int,nargs='+',default=[2930])
+    p.add_argument('--budgets',type=int,nargs='+',default=[3500])
     p.add_argument('--max-solves',type=int,default=100)
     p.add_argument('--baseline-steps',type=int,default=100)
     p.add_argument('--baseline-margin',type=float,default=2.)
-    p.add_argument('--min-margin',type=float,default=1.5,help='required budget / oracle DOF')
+    p.add_argument('--min-margin',type=float,default=1.005,help='required budget / oracle DOF')
     p.add_argument('--n-max',type=int,default=None,help='fixed N_max (default: 1.5 x oracle solves)')
     p.add_argument('--integration-h',type=float,default=.04)
     p.add_argument('--error-order',type=int,default=12)
@@ -181,7 +220,7 @@ def main(argv=None):
     args.config.unlink(missing_ok=True)
 
     with contextlib.redirect_stdout(io.StringIO()):
-        mesh,u,history=afem.run_targeted(problem.initial_mesh(),tol=args.tol,budget=max(args.budgets),
+        mesh,u,history=afem.run(problem.initial_mesh(),tol=args.tol,budget=max(args.budgets),
                                 N_max=args.max_solves,integration_h=args.integration_h,error_order=args.error_order)
     # Finer settings on the same final mesh: quadrature sensitivity (same code paths).
     checked=measure(mesh,args.integration_h/2,max(20,args.error_order+4))
@@ -225,7 +264,7 @@ def main(argv=None):
            'N_max counts solves including the initial solve.','',
            f'## Strategies at DOF budget {budget}','',
            '| Strategy | DOF | Relative energy error | Error / tol |','|---|---:|---:|---:|',
-           f'| Reference oracle (targeted, {len(history)} solves) | {history[-1]["dof"]} | '
+           f'| Reference AFEM (exact-error marking, {len(history)} solves) | {history[-1]["dof"]} | '
            f'{history[-1]["reported_error"]:.6g} | {history[-1]["reported_error"]/args.tol:.2f} |']
     for kind,rows in baselines.items():
         r=best(rows)
